@@ -11,7 +11,7 @@ export default function RoomCard({ title, subtitle, image }: any) {
     <TouchableOpacity className="bg-black/70 border border-yellow-500 rounded-xl p-3 mb-3 flex-row justify-between items-center">
       {/* Imagem do cômodo */}
       <View className="flex-row items-center space-x-3">
-        <Image source={{ uri: image }} className="w-16 h-16 rounded-lg" />
+        <Image source={{ uri: image }} className="w-16 h-16 rounded-lg mr-4" />
         <View>
           <Text className="text-white text-lg font-bold">{title}</Text>
           <Text className="text-gray-400 text-sm">{subtitle}</Text>

@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
 import { Path } from "react-native-svg";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
-import SvgIcon from "../components/SvgIconSocials";
+import SvgIcon from "../components/SvgLoginComponent";
 import { useRouter } from "expo-router";
 
 export default function LoginScreen() {
