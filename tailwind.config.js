@@ -7,7 +7,8 @@ module.exports = {content: ["./app/**/*.{js,ts,tsx}", "./components/**/*.{js,ts,
         primary01: "#DBB33A",      // amarelo principal
         primary05: "#E9D189",      // amarelo botão selecionado
         primarydark: "#010101",    // preto
-        secundarydark: "#1A1A1A",  // preto secundário
+        secundarydark: "#1A1A1A",  // preto secundário 
+        darkgray: "#343434",  // cinsa escuro
       },
       },
     },
