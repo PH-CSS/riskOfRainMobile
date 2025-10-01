@@ -11,7 +11,7 @@ export default function LoginScreen() {
   // Função chamada ao clicar no botão "LOGAR"
   const handleLogin = () => {
     // Vai direto para a Home (sem autenticação real)
-    router.replace("/HomeScreen"); 
+    router.replace("/(tabs)/HomeScreen");
   };
 
   return (

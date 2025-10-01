@@ -1,18 +1,12 @@
-import '../global.css';
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from "./LoginScreen";
-import HomeScreen from './HomeScreen';
+import "../global.css";
 
-const Stack = createNativeStackNavigator();
+import { Stack } from "expo-router";
 
 export default function Layout() {
-  
-	return (
-		
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
-    </Stack.Navigator>
-    
-	);
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="LoginScreen" />
+      <Stack.Screen name="(tabs)" />
+    </Stack>
+  );
 }
