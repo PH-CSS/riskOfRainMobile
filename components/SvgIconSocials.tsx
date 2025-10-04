@@ -1,5 +1,5 @@
 import React from "react";
-import Svg, { Path, Mask, G, SvgProps } from "react-native-svg";
+import Svg, { Path, Mask, SvgProps } from "react-native-svg";
 
 interface CustomSvgProp extends SvgProps {
   extraPath?: React.ReactNode;

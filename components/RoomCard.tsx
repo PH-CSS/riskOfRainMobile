@@ -1,4 +1,5 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
+import ToggleSwitch from "./ToggleSwitch";
 
 /**
  * Cartão de um cômodo (Quarto, Sala, Cozinha).
@@ -19,9 +20,9 @@ export default function RoomCard({ title, subtitle, image }: any) {
       </View>
 
       {/* Botão lateral */}
-      <View className="bg-yellow-500 px-3 py-2 rounded-lg">
-        <Text className="text-black font-bold">→</Text>
-      </View>
+
+      <ToggleSwitch />
+      
     </TouchableOpacity>
   );
 }
