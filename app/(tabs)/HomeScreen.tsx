@@ -1,4 +1,4 @@
-import { View, ScrollView, Text, SafeAreaView, Ima } from 'react-native';
+import { View, ScrollView, Text, SafeAreaView,  } from 'react-native';
 import Header from '../../components/Header';
 import RoomCard from '../../components/RoomCard';
 import { useState } from 'react';
