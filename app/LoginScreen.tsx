@@ -16,10 +16,10 @@ export default function LoginScreen() {
 
   return (
     <ImageBackground
-      source={require("../assets/pattern.png")}
-      style={{ flex: 1 }}
-      imageStyle={{ opacity: 0.91 }}
-      resizeMode="cover"
+      source={require("../assets/bg-pattern.png")}
+      className="flex-1 bg-primarydark "
+      resizeMode="repeat"
+      imageClassName="opacity-10"
     >
       <View className="flex-1 px-8 justify-center">
         {/* Título */}

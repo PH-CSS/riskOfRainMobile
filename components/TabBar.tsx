@@ -119,9 +119,9 @@ export default function CustomTabBar({ state, descriptors, navigation }: TabBarP
   };
 
 return (
-  <SafeAreaView className="bg-black">
-    <View className="relative flex-row bg-black pt-2 mb-11">
-      <View className="bg-darkgray absolute bottom-0 left-0 h-[60%] w-full border-t-2 border-primary01" />
+  <SafeAreaView className="bg-darkgray pb-14">
+    <View className="relative flex-row bg-black  ">
+      <View className="bg-darkgray absolute bottom-0 left-0 h-[60%] w-full pb-6 px-1 border-t-2 border-primary01" />
 
       {tabs.map((tab, idx) => {
         const isFocused = pathname === tab.route;

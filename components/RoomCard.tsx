@@ -1,28 +1,32 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
-import ToggleSwitch from "./ToggleSwitch";
+import { View, Text, Image } from 'react-native';
+import ToggleSwitch from './ToggleSwitch';
+// Update the import path below if HistoryContext is in a different location
+import { useHistory } from '../app/contexts/HistoryContext';
 
 /**
  * Cartão de um cômodo (Quarto, Sala, Cozinha).
- * @param {string} title - Nome do cômodo
- * @param {string} subtitle - Texto de apoio
- * @param {string} image - URL da imagem
  */
 export default function RoomCard({ title, subtitle, image }: any) {
+  const { addHistoryItem } = useHistory();
+
+  const handleSwitchToggle = (isEnabled: boolean) => {
+    const action = isEnabled ? 'aberto' : 'fechado';
+    addHistoryItem(title, action, subtitle, image);
+  };
+
   return (
-    <TouchableOpacity className="bg-black/70 border border-yellow-500 rounded-xl p-3 mb-3 flex-row justify-between items-center">
+    <View className="mb-3 flex-row items-center justify-between border border-yellow-500 bg-darkgray p-3">
       {/* Imagem do cômodo */}
       <View className="flex-row items-center space-x-3">
-        <Image source={{ uri: image }} className="w-16 h-16 rounded-lg mr-4" />
+        <Image source={{ uri: image }} className="mr-4 h-16 w-16 rounded-lg" />
         <View>
-          <Text className="text-white text-lg font-bold">{title}</Text>
-          <Text className="text-gray-400 text-sm">{subtitle}</Text>
+          <Text className="text-lg font-bold text-white">{title}</Text>
+          <Text className="text-sm text-gray-400">{subtitle}</Text>
         </View>
       </View>
 
       {/* Botão lateral */}
-
-      <ToggleSwitch />
-      
-    </TouchableOpacity>
+      <ToggleSwitch onToggle={handleSwitchToggle} />
+    </View>
   );
 }

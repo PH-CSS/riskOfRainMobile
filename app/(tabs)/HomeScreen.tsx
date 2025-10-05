@@ -1,4 +1,4 @@
-import { View, ScrollView, Text, SafeAreaView } from 'react-native';
+import { View, ScrollView, Text, SafeAreaView, Ima } from 'react-native';
 import Header from '../../components/Header';
 import RoomCard from '../../components/RoomCard';
 import { useState } from 'react';
@@ -16,6 +16,12 @@ export default function HomeScreen() {
   ];
 
   return (
+    // <ImageBackground
+    //   source={require("../assets/bg-pattern.png")}
+    //   className="flex-1 bg-primarydark "
+    //   resizeMode="repeat"
+    //   imageClassName="opacity-10"
+    // ></ImageBackground>
     <SafeAreaView className="flex-1 bg-black">
       {/* Cabeçalho */}
       <Header />
