@@ -3,6 +3,12 @@ module.exports = {content: ["./app/**/*.{js,ts,tsx}", "./components/**/*.{js,ts,
     presets: [require("nativewind/preset")],
     theme: {
       extend: {
+
+      fontFamily: {
+        ChakraPetch_light: ['ChakraPetch_300Light'],
+        ChakraPetch_medium: ['ChakraPetch_500Medium'],
+        MajorMonoDisplay: ['MajorMonoDisplay_400Regular'],
+      },
       colors: {
         primary01: "#DBB33A",      // amarelo principal
         primary05: "#E9D189",      // amarelo botão selecionado

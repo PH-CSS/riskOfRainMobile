@@ -15,6 +15,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/chakra-petch": "^0.4.1",
+    "@expo-google-fonts/major-mono-display": "^0.4.1",
     "@expo/vector-icons": "^14.0.0",
     "@react-native-async-storage/async-storage": "^1.24.0",
     "@react-navigation/native": "^7.0.3",

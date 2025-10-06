@@ -2,6 +2,8 @@ import { View, TouchableOpacity, Text, SafeAreaView } from 'react-native';
 import SvgIcon from './SvgIconSocials';
 import { Path, G } from 'react-native-svg';
 import { useRouter, usePathname } from 'expo-router';
+import IconCase from './IconCase';
+import { Add } from './icons';
 
 interface TabBarProps {
   state: any;
@@ -136,23 +138,26 @@ return (
         }
 
         return (
-          <TouchableOpacity
-            key={idx}
-            onPress={() => handleTabPress(tab.route)}
-            className="flex-1 items-center"
-          >
-            <View className="w-full flex-row items-center justify-around">
-              <SvgIcon
-                width={60}
-                height={60}
-                background={iconContent.background}
-                extraPath={iconContent.extraPath}
-              />
-            </View>
-            <Text className={`text-xs ${isFocused ? 'text-yellow-500' : 'text-white'}`}>
-              {tab.name}
-            </Text>
-          </TouchableOpacity>
+          // <TouchableOpacity
+          //   key={idx}
+          //   onPress={() => handleTabPress(tab.route)}
+          //   className="flex-1 items-center"
+          //   activeOpacity={.9}
+          // >
+          //   <View className="w-full flex-row items-center justify-around">
+          //     <SvgIcon
+          //       width={60}
+          //       height={60}
+          //       background={iconContent.background}
+          //       extraPath={iconContent.extraPath}
+          //     />
+          //   </View>
+          //   <Text className={`text-xs ${isFocused ? 'text-yellow-500' : 'text-white'}`}>
+          //     {tab.name}
+          //   </Text>
+          // </TouchableOpacity>
+                      <IconCase key={idx} className="size-12" Icon={<Add/>}/>
+
         );
       })}
     </View>

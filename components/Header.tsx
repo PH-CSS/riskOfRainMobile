@@ -29,8 +29,8 @@ export default function Header() {
       {/* Avatar e saudação */}
       <View className="flex-row items-center space-x-2">
         <View>
-          <Text className="text-white font-bold text-3xl">HI MSTOF</Text>
-          <Text className="text-gray-400 text-lg">Casa de Mstof ▽</Text>
+          <Text className="text-white text-3xl font-MajorMonoDisplay">hi mstof</Text>
+          <Text className="text-gray-400 text-lg font-MajorMonoDisplay">casa de Mstof ▽</Text>
         </View>
       </View>
       
