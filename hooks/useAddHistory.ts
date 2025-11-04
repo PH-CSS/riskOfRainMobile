@@ -1,0 +1,66 @@
+// hooks/useAddHistory.ts - VERSÃO CORRIGIDA
+import { ref, push, serverTimestamp } from 'firebase/database';
+import { dbFB } from '../config/firebaseConfig';
+import { useAuth } from './useAuth';
+
+interface AddHistoryParams {
+  room: string;
+  action: 'aberto' | 'fechado';
+  deviceId: string;
+  subtitle?: string;
+  image?: string;
+}
+
+export const useAddHistory = () => {
+  const { user } = useAuth();
+
+  const addHistory = async ({
+    room,
+    action,
+    deviceId,
+    subtitle = `ESP ${deviceId}`,
+    image
+  }: AddHistoryParams): Promise<boolean> => {
+    if (!user?.uid) {
+      console.log('❌ addHistory: User UID não encontrado');
+      return false;
+    }
+
+    try {
+      const historyRef = ref(dbFB, `userWeb/user/${user.uid}/history`);
+      
+      const historyData = {
+        room,
+        action,
+        deviceId,
+        subtitle,
+        image: image || getDefaultImage(room),
+        timestamp: Date.now() // ← CORREÇÃO: Usa timestamp atual
+      };
+
+      console.log('📝 Adicionando histórico:', historyData);
+      
+      await push(historyRef, historyData);
+
+      console.log('✅ Histórico adicionado com sucesso:', room, action);
+      return true;
+    } catch (error) {
+      console.error('❌ Erro ao adicionar histórico:', error);
+      return false;
+    }
+  };
+
+  return { addHistory };
+};
+
+const getDefaultImage = (roomName: string): string => {
+  const roomImages: { [key: string]: string } = {
+    'Quarto': 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400',
+    'Sala': 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400',
+    'Cozinha': 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400',
+    'Banheiro': 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400',
+    'Jardim': 'https://images.unsplash.com/photo-1519925610903-381054cc2a1c?w=400'
+  };
+
+  return roomImages[roomName] || 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400';
+};

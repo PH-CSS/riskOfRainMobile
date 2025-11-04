@@ -15,8 +15,10 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/chakra-petch": "^0.4.1",
+    "@expo-google-fonts/major-mono-display": "^0.4.1",
     "@expo/vector-icons": "^14.0.0",
-    "@react-native-async-storage/async-storage": "^1.24.0",
+    "@react-native-async-storage/async-storage": "2.1.2",
     "@react-navigation/native": "^7.0.3",
     "expo": "~53.0.6",
     "expo-constants": "~17.1.4",
@@ -27,20 +29,21 @@
     "expo-status-bar": "~2.2.3",
     "expo-system-ui": "~5.0.6",
     "expo-web-browser": "~14.1.6",
-    "firebase": "^12.2.1",
+    "firebase": "^12.4.0",
     "lucide-react-native": "^0.544.0",
-    "nativewind": "latest",
+    "nativewind": "^4.2.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.2",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-reanimated": "~3.17.4",
-    "react-native-safe-area-context": "^5.4.0",
+    "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.10.0",
     "react-native-svg": "^15.13.0",
     "react-native-switch": "^1.5.1",
     "react-native-web": "^0.20.0",
-    "react-native-worklets": "^0.5.1"
+    "react-native-worklets": "^0.5.1",
+    "expo-image-picker": "~16.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -51,7 +54,7 @@
     "eslint-config-prettier": "^10.1.2",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
-    "tailwindcss": "^3.4.0",
+    "tailwindcss": "^3.4.18",
     "typescript": "~5.8.3"
   },
   "private": true

@@ -64,9 +64,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
       activeOpacity={0.8}
       className="flex-row items-center space-x-3 mr-4"
     >
-      <Text className="text-lg font-medium text-white mr-2">
-        Status: {isEnabled ? 'ON' : 'OFF'}
-      </Text>
+
       
       <Animated.View className="relative w-14 h-8">
         {/* SVG da parte externa */}
