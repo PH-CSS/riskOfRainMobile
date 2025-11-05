@@ -6,7 +6,6 @@ import {
   ActivityIndicator, 
   TouchableOpacity, 
   SafeAreaView, 
-  FlatList, 
   ImageBackground,
   Alert,
   TextInput,
@@ -16,13 +15,12 @@ import {
 import { useAuth } from "../../hooks/useAuth";
 import { useUserWeb } from "../../hooks/useUserWeb";
 import { useProfilePictureFree } from '../../hooks/useProfilePictureImgBB';
-import IconCase from "../../components/Icons/iconsCase";  
 import { useRouter } from "expo-router";
 import { useState, useEffect } from "react";
 
 export default function Perfil() {
   const { user, loading: authLoading, logout } = useAuth();
-  const { userWebData, loading: userWebLoading, updateUserData, updateEspDevice, updateSensorStatus } = useUserWeb();
+  const { userWebData, loading: userWebLoading, updateUserData } = useUserWeb();
   const { pickImageFromGallery, takePhotoWithCamera, uploading, error } = useProfilePictureFree();
   const router = useRouter();
 
@@ -134,24 +132,24 @@ export default function Perfil() {
       "Escolha como deseja alterar sua foto:",
       [
         {
-          text: "📷 Tirar Foto",
+          text: " Tirar Foto",
           onPress: async () => {
             const success = await takePhotoWithCamera();
             if (success) {
-              Alert.alert("✅ Sucesso", "Foto de perfil atualizada!");
+              Alert.alert(" Sucesso", "Foto de perfil atualizada!");
             } else {
-              Alert.alert("❌ Erro", "Não foi possível atualizar a foto");
+              Alert.alert(" Erro", "Não foi possível atualizar a foto");
             }
           }
         },
         {
-          text: "🖼️ Escolher da Galeria", 
+          text: " Escolher da Galeria", 
           onPress: async () => {
             const success = await pickImageFromGallery();
             if (success) {
-              Alert.alert("✅ Sucesso", "Foto de perfil atualizada!");
+              Alert.alert(" Sucesso", "Foto de perfil atualizada!");
             } else {
-              Alert.alert("❌ Erro", "Não foi possível atualizar a foto");
+              Alert.alert(" Erro", "Não foi possível atualizar a foto");
             }
           }
         },
@@ -162,31 +160,6 @@ export default function Perfil() {
       ]
     );
   };
-
-  // Função para alternar status do ESP
-  const toggleEspStatus = async (espId: string, currentStatus: boolean) => {
-    try {
-      const success = await updateEspDevice(espId, { ativo: !currentStatus });
-      if (!success) {
-        Alert.alert('Erro', 'Falha ao atualizar dispositivo');
-      }
-    } catch (error) {
-      Alert.alert('Erro', 'Erro ao atualizar dispositivo');
-    }
-  };
-
-  // Função para alternar sensor global
-  const toggleSensorStatus = async (currentStatus: boolean) => {
-    try {
-      const success = await updateSensorStatus(!currentStatus);
-      if (!success) {
-        Alert.alert('Erro', 'Falha ao atualizar sensor');
-      }
-    } catch (error) {
-      Alert.alert('Erro', 'Erro ao atualizar sensor');
-    }
-  };
-
   // Converter objetos ESP em array para FlatList
   const espDevices = userWebData?.devices?.Esp ? 
     Object.entries(userWebData.devices.Esp).map(([id, device]) => ({
@@ -216,22 +189,23 @@ export default function Perfil() {
 
   return (
     <ImageBackground
-      source={require("../../assets/bg-pattern.png")}
-      className="flex-1 bg-primarydark"
-      resizeMode="repeat"
+        source={require("../../assets/bg-pattern.png")}
+        className="flex-1 bg-primarydark"
+        resizeMode="repeat"
+        imageStyle={{ opacity: 0.1 }}
     >
-      <SafeAreaView className="flex-1 bg-black">
+      <SafeAreaView className="flex-1">
         <ScrollView className="flex-1 px-6 py-2" showsVerticalScrollIndicator={false}>
           
           {/* Cabeçalho */}
           <View className="flex-row items-center justify-between mt-5 mb-8">
-            <Text className="font-ChakraPetch_medium text-yellow-400 text-2xl font-bold tracking-wider">PERFIL</Text>
+            <Text className="font-ChakraPetch_medium text-yellow-500 text-2xl font-bold tracking-wider">PERFIL</Text>
             <View className="flex-row space-x-2">
               <TouchableOpacity 
                 onPress={handleEditToggle}
-                className="border border-yellow-500 px-3 py-1"
+                className="border border-primary01 px-3 py-1"
               >
-                <Text className="font-ChakraPetch_medium text-yellow-400 font-semibold">
+                <Text className="font-ChakraPetch_medium text-yellow-500 font-semibold">
                   {isEditing ? 'Cancelar' : 'Editar'}
                 </Text>
               </TouchableOpacity>
@@ -272,7 +246,7 @@ export default function Perfil() {
                       }}
                     >
                       <ActivityIndicator size="small" color="#FFD700" />
-                      <Text className="font-ChakraPetch_medium text-yellow-400 text-xs mt-2">Enviando...</Text>
+                      <Text className="font-ChakraPetch_medium text-yellow-500 text-xs mt-2">Enviando...</Text>
                     </View>
                   ) : (
                     <Image
@@ -302,7 +276,7 @@ export default function Perfil() {
               disabled={uploading}
               className="mt-2"
             >
-              <Text className="font-ChakraPetch_medium text-yellow-400 text-sm underline">
+              <Text className="font-ChakraPetch_medium text-yellow-500 text-sm underline">
                 {uploading ? 'Enviando foto...' : 'Alterar foto'}
               </Text>
             </TouchableOpacity>
@@ -331,8 +305,8 @@ export default function Perfil() {
           </View>
 
           {/* Formulário de Edição */}
-          <View className="bg-zinc-900 border border-yellow-800 p-6 mb-6">
-            <Text className="font-ChakraPetch_medium text-yellow-400 text-lg font-bold mb-4 text-center">
+          <View className="bg-darkgray border border-primary01 p-6 mb-6">
+            <Text className="font-ChakraPetch_medium text-yellow-500 text-lg font-bold mb-4 text-center">
               {isEditing ? 'EDITAR INFORMAÇÕES' : 'INFORMAÇÕES DA CONTA'}
             </Text>
 
@@ -341,7 +315,7 @@ export default function Perfil() {
               <Text className="font-ChakraPetch_medium text-white text-sm mb-2">Email</Text>
               {isEditing ? (
                 <TextInput
-                  className="bg-zinc-800 border border-yellow-600 px-4 py-3 text-white"
+                  className="bg-zinc-800 border border-primary01 px-4 py-3 text-white"
                   value={editData.email}
                   onChangeText={(text) => setEditData({...editData, email: text})}
                   placeholder="Seu email"
@@ -350,7 +324,7 @@ export default function Perfil() {
                   autoCapitalize="none"
                 />
               ) : (
-                <Text className="font-ChakraPetch_medium text-gray-300 bg-zinc-800 px-4 py-3">
+                <Text className="font-ChakraPetch_medium text-gray-300 bg-primarydark px-4 py-3">
                   {userWebData?.email || 'Não informado'}
                 </Text>
               )}
@@ -361,14 +335,14 @@ export default function Perfil() {
               <Text className="font-ChakraPetch_medium text-white text-sm mb-2">Nome</Text>
               {isEditing ? (
                 <TextInput
-                  className="bg-zinc-800 border border-yellow-600 px-4 py-3 text-white"
+                  className="bg-primarydark border border-primary01 px-4 py-3 text-white"
                   value={editData.name}
                   onChangeText={(text) => setEditData({...editData, name: text})}
                   placeholder="Seu nome"
                   placeholderTextColor="#9CA3AF"
                 />
               ) : (
-                <Text className="font-ChakraPetch_medium text-gray-300 bg-zinc-800 px-4 py-3">
+                <Text className="font-ChakraPetch_medium text-gray-300 bg-primarydark px-4 py-3">
                   {userWebData?.name || 'Não informado'}
                 </Text>
               )}
@@ -379,14 +353,14 @@ export default function Perfil() {
               <Text className="font-ChakraPetch_medium text-white text-sm mb-2">CPF</Text>
               {isEditing ? (
                 <TextInput
-                  className="bg-zinc-800 border border-yellow-600 px-4 py-3 text-white"
+                  className="bg-primarydark border border-primary01 px-4 py-3 text-white"
                   value={editData.cpf}
                   onChangeText={(text) => setEditData({...editData, cpf: text})}
                   placeholder="000.000.000-00"
                   placeholderTextColor="#9CA3AF"
                 />
               ) : (
-                <Text className="font-ChakraPetch_medium text-gray-300 bg-zinc-800 px-4 py-3">
+                <Text className="font-ChakraPetch_medium text-gray-300 bg-primarydark px-4 py-3">
                   {userWebData?.cpf || 'Não informado'}
                 </Text>
               )}
@@ -397,15 +371,14 @@ export default function Perfil() {
               <Text className="font-ChakraPetch_medium text-white text-sm mb-2">Senha</Text>
               {isEditing ? (
                 <TextInput
-                  className="bg-zinc-800 border border-yellow-600 px-4 py-3 text-white"
+                  className="bg-primarydark border border-primary01 px-4 py-3 text-white"
                   value={editData.password}
                   onChangeText={(text) => setEditData({...editData, password: text})}
                   placeholder="Sua senha"
                   placeholderTextColor="#9CA3AF"
-                  secureTextEntry
                 />
               ) : (
-                <Text className="font-ChakraPetch_medium text-gray-300 bg-zinc-800 px-4 py-3">
+                <Text className="font-ChakraPetch_medium text-gray-300 bg-primarydark px-4 py-3">
                   ••••••••••
                 </Text>
               )}
@@ -425,95 +398,48 @@ export default function Perfil() {
           </View>
 
           {/* Sensor Global */}
-          <View className="bg-zinc-900 border border-yellow-800 p-6 mb-6">
-            <Text className="font-ChakraPetch_medium text-yellow-400 text-lg font-bold mb-4 text-center">
+          <View className="bg-darkgray border border-primary01 p-6 mb-6">
+            <Text className="font-ChakraPetch_medium text-yellow-500 text-lg font-bold mb-4 text-center">
               SENSOR GLOBAL
             </Text>
             <View className="flex-row justify-between items-center">
               <Text className="font-ChakraPetch_medium text-white text-lg">Status do Sensor</Text>
               <Switch
                 value={sensorStatus}
-                onValueChange={toggleSensorStatus}
                 trackColor={{ false: '#767577', true: '#DBB33A' }}
                 thumbColor={sensorStatus ? '#f4f3f4' : '#f4f3f4'}
               />
             </View>
             <Text className="font-ChakraPetch_medium text-gray-400 text-sm mt-2">
               {sensorStatus 
-                ? 'Todos os sensores estão ativos' 
-                : 'Sensores desativados'
+                ? 'Sensor estão ativo: O sensor está molhado' 
+                : 'Sensor desativado: O sensor está seco'
               }
             </Text>
           </View>
 
-          {/* Lista de dispositivos ESP */}
-          <View className="bg-zinc-900 border border-yellow-800 p-6 mb-6">
-            <Text className="font-ChakraPetch_medium text-yellow-400 text-lg font-bold mb-4 text-center">
-              DISPOSITIVOS ESP
-            </Text>
-
-            {espDevices.length === 0 ? (
-              <View className="items-center py-4">
-                <Text className="font-ChakraPetch_medium text-gray-400 italic text-center">
-                  Nenhum dispositivo ESP configurado.
-                </Text>
-              </View>
-            ) : (
-              <FlatList
-                data={espDevices}
-                scrollEnabled={false}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                  <View className="bg-zinc-800 border border-yellow-700 p-4 mb-3">
-                    <View className="flex-row justify-between items-center">
-                      <View className="flex-1">
-                        <Text className="font-ChakraPetch_medium text-white font-semibold text-base">
-                          {item.name}
-                        </Text>
-                        <Text className="font-ChakraPetch_medium text-gray-400 text-sm mt-1">
-                          ID: {item.id}
-                        </Text>
-                      </View>
-                      <View className="flex-row items-center space-x-3">
-                        <Text className={`text-xs ${item.ativo ? 'text-green-400' : 'text-red-400'}`}>
-                          {item.ativo ? 'Ativo' : 'Inativo'}
-                        </Text>
-                        <Switch
-                          value={item.ativo}
-                          onValueChange={() => toggleEspStatus(item.id, item.ativo)}
-                          trackColor={{ false: '#767577', true: '#10B981' }}
-                          thumbColor={item.ativo ? '#f4f3f4' : '#f4f3f4'}
-                        />
-                      </View>
-                    </View>
-                  </View>
-                )}
-              />
-            )}
-          </View>
-
           {/* Estatísticas */}
-          <View className="mt-6 border-t border-yellow-800 pt-4 ">
+          <View className="mt-6 border-t border-primary01 pt-4 ">
             <View className="flex-row justify-between ">
               <View className="items-center">
-                <Text className="font-ChakraPetch_medium text-yellow-400 text-lg font-bold">{espDevices.length}</Text>
+                <Text className="font-ChakraPetch_medium text-yellow-500 text-lg font-bold">{espDevices.length}</Text>
                 <Text className="font-ChakraPetch_medium text-gray-400 text-xs">Dispositivos</Text>
               </View>
               <View className="items-center">
-                <Text className="font-ChakraPetch_medium text-yellow-400 text-lg font-bold">
+                <Text className="font-ChakraPetch_medium text-yellow-500 text-lg font-bold">
                   {espDevices.filter(esp => esp.ativo).length}
                 </Text>
                 <Text className="font-ChakraPetch_medium text-gray-400 text-xs">Ativos</Text>
               </View>
               <View className="items-center">
-                <Text className="font-ChakraPetch_medium text-yellow-400 text-lg font-bold">1</Text>
+                <Text className="font-ChakraPetch_medium text-yellow-500 text-lg font-bold">1</Text>
                 <Text className="font-ChakraPetch_medium text-gray-400 text-xs">Conta</Text>
               </View>
             </View>
           </View>
 
           {/* Rodapé */}
-          <View className="mt-6 mb-6 border-t border-yellow-800 pt-4 pb-8 ">
+          <View className="mt-6 mb-6 border-t border-primary01 pt-4 pb-8 ">
             <Text className="font-ChakraPetch_medium text-gray-500 text-center text-sm">
               Risk of Rain Mobile © 2025
             </Text>

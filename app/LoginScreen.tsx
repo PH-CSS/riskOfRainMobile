@@ -141,6 +141,8 @@ export default function LoginScreen() {
           </View>
 
           {/* Social Buttons SVG */}
+
+          {/* Google login */}
           <View className="flex-row justify-evenly w-full">
             <TouchableOpacity>
               <SvgIcon 
@@ -155,6 +157,8 @@ export default function LoginScreen() {
               />
             </TouchableOpacity>
             
+
+            {/* Apple Login */}
             <TouchableOpacity>
               <SvgIcon 
                 width={60} 

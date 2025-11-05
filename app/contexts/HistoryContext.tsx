@@ -24,7 +24,7 @@ interface HistoryProviderProps {
 export const HistoryProvider: React.FC<HistoryProviderProps> = ({ children }) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
 
-  const addHistoryItem = (room: string, action: 'aberto' | 'fechado', subtitle: string, image: string) => {
+  const addHistoryItem = (room: string, action: 'abertoo' | 'fechado', subtitle: string, image: string) => {
     const newItem: HistoryItem = {
       id: Math.random().toString(36).substr(2, 9),
       room,

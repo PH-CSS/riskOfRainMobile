@@ -1,5 +1,9 @@
 // export { default as AccountCircle } from "./AccountCircle";
-export { default as Add } from "./Add";
+// components/Icons/index.ts
+export { default as Add } from './Add'; // Seu ícone atual da casa
+export { ProfileIcon } from './ProfileIcon';
+export { HistoryIcon } from './HistoryIcon';
+
 // export { default as Alert } from "./Alert";
 // export { default as Check } from "./Check";
 // export { default as CloudDone } from "./CloudDone";

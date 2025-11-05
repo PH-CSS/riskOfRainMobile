@@ -71,8 +71,8 @@ export default function HomeScreen() {
                 onPress={() => setSelectedFilter(filter.value)}
                 className={
                   selectedFilter === filter.value
-                    ? 'bg-yellow-500 px-5 py-2 '
-                    : 'border border-yellow-500 px-5 py-2 '
+                    ? 'bg-primary01 px-5 py-2 '
+                    : 'border border-primary01 px-5 py-2 '
                 }>
                 <Text className={
                   selectedFilter === filter.value
@@ -88,20 +88,20 @@ export default function HomeScreen() {
           {/* Status e botões */}
           <View className="mb-4 px-6">
             <View className="my-4 flex-row items-center">
-              <View className="h-px flex-1 bg-yellow-500" />
-              <Text className="font-ChakraPetch_medium text-gray-400 mx-2">Arduino R31RVV91</Text>
-              <View className="h-px flex-1 bg-yellow-500" />
+              <View className="h-px flex-1 bg-primary01" />
+              <Text className="font-ChakraPetch_medium text-gray-400 mx-2">Sessão de controle</Text>
+              <View className="h-px flex-1 bg-primary01" />
             </View>
 
-            <View className="mb-2 flex-row gap-3">
-              <View className="flex-1 items-center justify-center border border-yellow-500 bg-transparent px-4 py-3 ">
+            <View className=" flex-row gap-3">
+              <View className="flex-1 items-center justify-center border border-primary01 bg-transparent px-4 py-3 ">
                 <Text className="font-ChakraPetch_medium text-center text-base text-white">
                   {rooms.filter(room => room.isEnabled).length} ativos
                 </Text>
               </View>
               
               <TouchableOpacity 
-                className="flex-1 items-center justify-center border border-yellow-500 bg-transparent px-4 py-3 "
+                className="flex-1 items-center justify-center border border-primary01 bg-transparent px-4 py-3 "
                 onPress={handleCloseAllPress}
                 disabled={rooms.length === 0}
               >
@@ -110,7 +110,7 @@ export default function HomeScreen() {
                 </Text>
               </TouchableOpacity>
               
-              <View className="flex-1 items-center justify-center border border-yellow-500 bg-transparent px-4 py-3 ">
+              <View className="flex-1 items-center justify-center border border-primary01 bg-transparent px-4 py-3 ">
                 <Text className="font-ChakraPetch_medium text-center text-base text-white">
                   {rooms.length} total
                 </Text>
@@ -120,11 +120,11 @@ export default function HomeScreen() {
 
           {/* Divisor */}
           <View className="my-4 flex-row items-center px-6">
-            <View className="h-px flex-1 bg-yellow-500" />
+            <View className="h-px flex-1 bg-primary01" />
           </View>
 
           {/* Conteúdo scrollável */}
-          <ScrollView className="flex-1 px-6 pb-4" showsVerticalScrollIndicator={false}>
+          <ScrollView className="flex-1 px-6 pb-4 mt-4" showsVerticalScrollIndicator={false}>
             {filteredRooms.map((room) => (
               <RoomCard
                 key={room.id}

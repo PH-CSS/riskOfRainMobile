@@ -1,11 +1,11 @@
-// hooks/useAddHistory.ts - VERSÃO CORRIGIDA
+// hooks/useAddHistory.ts 
 import { ref, push, serverTimestamp } from 'firebase/database';
 import { dbFB } from '../config/firebaseConfig';
 import { useAuth } from './useAuth';
 
 interface AddHistoryParams {
   room: string;
-  action: 'aberto' | 'fechado';
+  action: 'fechado' | 'aberto';
   deviceId: string;
   subtitle?: string;
   image?: string;

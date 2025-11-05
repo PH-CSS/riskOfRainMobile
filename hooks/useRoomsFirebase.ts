@@ -1,4 +1,4 @@
-// hooks/useRoomsFirebase.ts - VERSÃO CORRIGIDA
+// hooks/useRoomsFirebase.ts
 import { useState, useEffect, useRef } from 'react';
 import { ref, onValue, update, set, get } from 'firebase/database';
 import { dbFB } from '../config/firebaseConfig';
@@ -211,7 +211,7 @@ export const useRoomsFirebase = () => {
   return {
     rooms,
     loading,
-    sensorStatus, // ✅ Apenas para informação, não para controle
+    sensorStatus, // Apenas para informação, não para controle
     updateRoomState,
     closeAllRooms,
     openAllRooms

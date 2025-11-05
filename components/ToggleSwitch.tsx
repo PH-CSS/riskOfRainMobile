@@ -1,3 +1,4 @@
+import { set } from 'firebase/database';
 import React, { useState, useEffect, useRef } from 'react';
 import { TouchableOpacity, Text, Animated } from 'react-native';
 import { Svg, Path, Mask } from 'react-native-svg';
@@ -38,6 +39,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
       useNativeDriver: true,
     }).start();
   }, [animatedValue, isEnabled]);
+
 
   const toggleSwitch = () => {
     const newValue = !isEnabled;

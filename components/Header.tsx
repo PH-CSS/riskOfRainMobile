@@ -51,7 +51,7 @@ export default function Header() {
   };
 
   return (
-    <View className="my-4 px-6 p-4 pt-6 ">
+    <View className="flex-row justify-between items-center my-4 mt-6 mb-10 px-6 p-4 pt-6  ">
       <View className="flex-row justify-between items-center mb-4">
         {/* Container da Foto de Perfil - AGORA CLICÁVEL */}
         <TouchableOpacity 
@@ -109,14 +109,14 @@ export default function Header() {
           </View>
         </TouchableOpacity>
 
-        <View className="flex-row gap-8 space-x-3">
+        {/* <View className="flex-row gap-8 space-x-3">
           <TouchableOpacity className="bg-yellow-500 p-2 rounded-full">
             <Plus color="black" size={20} />
           </TouchableOpacity>
           <TouchableOpacity className="bg-yellow-500 p-2 rounded-full">
             <Bell color="black" size={20} />
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
 
       <View className="flex-row items-center ">

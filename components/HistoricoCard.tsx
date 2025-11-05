@@ -4,7 +4,7 @@ import { View, Text, Image } from 'react-native';
 // Interface local para evitar conflitos
 interface HistoryItem {
   room: string;
-  action: 'aberto' | 'fechado';
+  action: 'fechado' | 'aberto';
   timestamp: Date;
   subtitle: string;
   image: string;
@@ -23,12 +23,12 @@ export default function HistoricoCard({ room, action, timestamp, subtitle, image
   };
 
   return (
-    <View className="mb-3 flex-row items-center justify-between border border-yellow-500 bg-darkgray p-3 rounded-lg">
+    <View className="mb-3 flex-row items-center justify-between border border-yellow-500 bg-darkgray p-3 ">
       {/* Imagem e informações do cômodo */}
       <View className="flex-1 flex-row items-center">
         <Image 
           source={{ uri: image }} 
-          className="mr-4 h-16 w-16 rounded-lg" 
+          className="mr-4 h-16 w-16 " 
           resizeMode="cover"
         />
         <View className="flex-1">
@@ -43,10 +43,10 @@ export default function HistoricoCard({ room, action, timestamp, subtitle, image
       {/* Status da ação */}
       <View
         className={`rounded-full px-3 py-1 ${
-          action === 'aberto' ? 'bg-green-500' : 'bg-red-500'
+          action === 'fechado' ? 'bg-red-500' : 'bg-green-500'
         }`}>
         <Text className="font-ChakraPetch_bold text-sm text-white">
-          {action === 'aberto' ? 'ABERTO' : 'FECHADO'}
+          {action === 'aberto' ? 'JANELA FECHADA' : 'JANELA ABERTA'}
         </Text>
       </View>
     </View>

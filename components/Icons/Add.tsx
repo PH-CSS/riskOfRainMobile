@@ -1,30 +1,41 @@
-import * as React from 'react';
-import Svg, { SvgProps, Mask, Path, G } from 'react-native-svg';
+// components/Icons/HomeIcon.tsx
+import React from 'react';
+import Svg, { Path } from 'react-native-svg';
 
-type SvgComponentProps = SvgProps & {
+interface HomeIconProps {
   color?: string;
-};
+  size?: number;
+}
 
-const SvgComponent = ({ color = '#DBB33A', ...props }: SvgComponentProps) => (
-  <Svg width={16} height={16} fill="none" {...props}>
-    <Mask
-      id="a"
-      width={16}
-      height={16}
-      x={0}
-      y={0}
-      maskUnits="userSpaceOnUse"
-      style={{
-        maskType: 'alpha',
-      }}>
-      <Path fill="#D9D9D9" d="M0 0h16v16H0z" />
-    </Mask>
-    <G mask="url(#a)">
-      <Path
-        fill={color}
-        d="M4 12.667h2v-4h4v4h2v-6l-4-3-4 3v6ZM2.667 14V6L8 2l5.333 4v8H8.667v-4H7.333v4H2.667Z"
-      />
-    </G>
+export const HomeIcon: React.FC<HomeIconProps> = ({ 
+  color = "#DBB33A", 
+  size = 24 
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    {/* Telhado */}
+    <Path 
+      d="M3 10L12 3L21 10" 
+      stroke={color} 
+      strokeWidth="2" 
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+    />
+    {/* Corpo da casa */}
+    <Path 
+      d="M5 10V19C5 19.5523 5.44772 20 6 20H9V16C9 15.4477 9.44772 15 10 15H14C14.5523 15 15 15.4477 15 16V20H18C18.5523 20 19 19.5523 19 19V10" 
+      stroke={color} 
+      strokeWidth="2" 
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+    />
+    {/* Porta (opcional) */}
+    <Path 
+      d="M10 20V15H14V20" 
+      fill={color}
+    />
   </Svg>
 );
-export default SvgComponent;
+
+export default HomeIcon;

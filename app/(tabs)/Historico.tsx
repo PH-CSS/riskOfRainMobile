@@ -1,37 +1,37 @@
-// app/(tabs)/HistoricoScreen.tsx - VERSÃO OTIMIZADA
+// app/(tabs)/HistoricoScreen.tsx
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, ImageBackground, ActivityIndicator, Alert } from 'react-native';
 import { memo, useCallback } from 'react';
 import Header from '../../components/Header';
 import HistoricoCard from '../../components/HistoricoCard';
 import { useHistoryFirebase } from '../../hooks/useHistoryFirebase';
 
-// ✅ Use memo para evitar re-renders desnecessários
+// Use memo para evitar re-renders desnecessários
 const HistoricoScreen = memo(function HistoricoScreen() {
   const { history, loading, clearing, clearHistory } = useHistoryFirebase();
 
-  // ✅ useCallback para evitar recriação da função
-  const handleClearHistory = useCallback(() => {
-    Alert.alert(
-      'Limpar Histórico',
-      'Tem certeza que deseja limpar todo o histórico? Esta ação não pode ser desfeita.',
-      [
-        {
-          text: 'Cancelar',
-          style: 'cancel',
-        },
-        {
-          text: 'Limpar',
-          style: 'destructive',
-          onPress: async () => {
-            const success = await clearHistory();
-            if (!success) {
-              Alert.alert('Erro', 'Não foi possível limpar o histórico');
-            }
-          },
-        },
-      ]
-    );
-  }, [clearHistory]);
+  // useCallback para evitar recriação da função
+  // const handleClearHistory = useCallback(() => {
+  //   Alert.alert(
+  //     'Limpar Histórico',
+  //     'Tem certeza que deseja limpar todo o histórico? Esta ação não pode ser desfeita.',
+  //     [
+  //       {
+  //         text: 'Cancelar',
+  //         style: 'cancel',
+  //       },
+  //       {
+  //         text: 'Limpar',
+  //         style: 'destructive',
+  //         onPress: async () => {
+  //           const success = await clearHistory();
+  //           if (!success) {
+  //             Alert.alert('Erro', 'Não foi possível limpar o histórico');
+  //           }
+  //         },
+  //       },
+  //     ]
+  //   );
+  // }, [clearHistory]);
 
   return (
     <SafeAreaView className="flex-1 bg-black">
@@ -42,7 +42,9 @@ const HistoricoScreen = memo(function HistoricoScreen() {
         imageStyle={{ opacity: 0.1 }}
       >
         <Header />
-
+            <View className="mb-4 px-6 my-4 flex-row items-center">
+              <View className="h-px flex-1 bg-primary01" />
+            </View>
         {/* Header do histórico */}
         <View className="flex-row items-center justify-between px-6 py-4">
           <View>
@@ -53,8 +55,8 @@ const HistoricoScreen = memo(function HistoricoScreen() {
           </View>
           {history.length > 0 && (
             <TouchableOpacity 
-              onPress={handleClearHistory} 
-              className="rounded border border-red-500 px-4 py-2"
+              onPress={clearHistory} 
+              className="border border-red-500 px-4 py-2"
               disabled={clearing}
             >
               {clearing ? (
@@ -76,7 +78,7 @@ const HistoricoScreen = memo(function HistoricoScreen() {
           </View>
         ) : (
           <ScrollView 
-            className="px-6 pb-4" 
+            className="px-6 pb-4 mb-10" 
             showsVerticalScrollIndicator={false}
             removeClippedSubviews={true} // ✅ Otimização para listas grandes
           >
