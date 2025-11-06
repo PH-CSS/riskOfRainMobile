@@ -5,7 +5,7 @@ import '../global.css';
 import { useEffect } from 'react';
 
 SplashScreen.preventAutoHideAsync();
-
+// teste
 
 export default function Layout() {
 
