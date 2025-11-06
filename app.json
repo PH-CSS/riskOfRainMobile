@@ -44,7 +44,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Este app precisa acessar sua câmera para tirar fotos de perfil.",
-        "NSPhotoLibraryUsageDescription": "Este app precisa acessar sua galeria para escolher fotos de perfil."
+        "NSPhotoLibraryUsageDescription": "Este app precisa acessar sua galeria para escolher fotos de perfil.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
