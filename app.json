@@ -3,20 +3,17 @@
     "name": "riskOfRainMobile",
     "slug": "riskOfRainMobile",
     "version": "1.0.0",
-    "scheme": "riskOfRainMobile",
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/favicon.png"
+    "scheme": "riskofrainmobile",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": ["**/*"],
     "plugins": [
       "expo-router",
-      [
-        "expo-dev-launcher",
-        {
-          "launchMode": "most-recent"
-        }
-      ],
       [
         "expo-image-picker",
         {
@@ -24,21 +21,13 @@
           "cameraPermission": "O app precisa acessar sua câmera para você poder tirar uma foto de perfil."
         }
       ],
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
     },
-    "orientation": "portrait",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
       "bundleIdentifier": "com.ror.riskofrainmobile",
       "supportsTablet": true,
@@ -56,9 +45,13 @@
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.RECORD_AUDIO"
       ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/favicon.png"
     },
     "extra": {
       "router": {},
