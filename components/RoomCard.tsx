@@ -17,7 +17,7 @@ interface RoomCardProps {
 export default function RoomCard({ id, title, subtitle, image, isEnabled }: RoomCardProps) {
   const { addHistoryItem } = useHistory();
   const { updateRoomState } = useRoomsFirebase();
-  const [roomName, setRoomName] = useState(title); // Estado local para o nome
+  const [roomName, setRoomName] = useState(title);
 
   const handleSwitchToggle = async (newValue: boolean) => {
     const success = await updateRoomState(id, newValue);
@@ -36,18 +36,21 @@ export default function RoomCard({ id, title, subtitle, image, isEnabled }: Room
 
   return (
     <View className="mb-3 flex-row items-center justify-between border border-yellow-500 bg-darkgray p-4">
-      <View className="flex-row items-center space-x-3 flex-1">
+      <View className="flex-row items-center flex-1">
+        {/* Imagem fixa à esquerda */}
         <Image 
           source={{ uri: image }} 
-          className="h-16 w-16" 
+          className="h-16 w-16 rounded-lg" 
           defaultSource={require('../assets/default-room.jpg')}
         />
 
-        <View className="flex-1 ml-4">
-          {/* Linha com título, ícone de edição e ToggleSwitch */}
-          <View className="flex-row items-center justify-between mb-1">
-            <View className="flex-row items-center flex-1 mr-3">
-              <Text className="text-lg font-bold text-white mr-2">
+        {/* Conteúdo do meio + toggle à direita */}
+        <View className="flex-row items-center justify-between flex-1 ml-4">
+          {/* Informações do cômodo */}
+          <View className="flex-1 mr-4">
+            {/* Linha do título e ícone de edição */}
+            <View className="flex-row items-center mb-1">
+              <Text className="text-lg font-bold text-white mr-2 flex-shrink">
                 {roomName}
               </Text>
               <EditRoomName 
@@ -56,18 +59,24 @@ export default function RoomCard({ id, title, subtitle, image, isEnabled }: Room
                 onNameUpdated={handleNameUpdated}
               />
             </View>
+            
+            {/* Subtítulo */}
+            <Text className="text-sm text-gray-400 mb-1">{subtitle}</Text>
+            
+            {/* Status */}
+            <View className="flex-row items-center">
+              <View className={`w-2 h-2 rounded-full mr-2 ${isEnabled ? 'bg-green-400' : 'bg-red-400'}`} />
+              <Text className={`text-xs ${isEnabled ? 'text-green-400' : 'text-red-400'}`}>
+                {isEnabled ? 'Janela fechada' : 'Janela aberta'}
+              </Text>
+            </View>
+          </View>
+
+          <View className="flex-shrink-0">
             <ToggleSwitch 
               onToggle={handleSwitchToggle} 
               value={isEnabled}
             />
-          </View>
-          
-          <Text className="text-sm text-gray-400">{subtitle}</Text>
-          <View className="flex-row items-center mt-1">
-            <View className={`w-2 h-2 mr-2 ${isEnabled ? 'bg-green-400' : 'bg-red-400'}`} />
-            <Text className={`text-xs ${isEnabled ? 'text-green-400' : 'text-red-400'}`}>
-              {isEnabled ? 'Janela fechada' : 'Janela aberta'}
-            </Text>
           </View>
         </View>
       </View>
