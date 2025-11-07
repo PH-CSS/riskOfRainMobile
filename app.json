@@ -3,7 +3,7 @@
     "name": "riskOfRainMobile",
     "slug": "riskOfRainMobile",
     "version": "1.0.0",
-    "scheme": "riskOfRainMobile",
+    "scheme": "riskofrainmobile",
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -12,7 +12,6 @@
     "plugins": [
       "expo-router",
       [
-        "expo-dev-launcher",
         {
           "launchMode": "most-recent"
         }
@@ -24,7 +23,8 @@
           "cameraPermission": "O app precisa acessar sua câmera para você poder tirar uma foto de perfil."
         }
       ],
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true,
