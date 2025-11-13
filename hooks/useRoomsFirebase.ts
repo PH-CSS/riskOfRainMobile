@@ -225,7 +225,7 @@ const getRoomImage = (roomName: string): string => {
     'Sala': 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400',
     'Cozinha': 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400',
     'Banheiro': 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400',
-    'Jardim': 'https://images.unsplash.com/photo-1519925610903-381054cc2a1c?w=400'
+    'Portão': 'https://plus.unsplash.com/premium_photo-1661286705410-edb4c9bde72a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   };
 
   return roomImages[roomName] || 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400';
