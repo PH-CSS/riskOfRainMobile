@@ -51,7 +51,7 @@ export default function Header() {
   };
 
   return (
-    <View className="flex-row justify-between items-center my-4 mt-6 mb-5 px-6 p-4 pt-6  ">
+    <View className="flex-row justify-between items-center my-4 mt-6 mb-10 px-6 p-4 pt-6  ">
       <View className="flex-row justify-between items-center mb-4">
         {/* Container da Foto de Perfil - AGORA CLICÁVEL */}
         <TouchableOpacity 
