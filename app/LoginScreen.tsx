@@ -82,7 +82,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <View className="flex-1 bg-primarydark">
+    <View className=" font-ChakraPetch_light flex-1 bg-primarydark">
       {/* Background Image com styling correto */}
       <ImageBackground 
         source={require("../assets/bg-pattern.png")} 
@@ -124,7 +124,7 @@ export default function LoginScreen() {
 
           {/* Botão principal -> chama handleLogin */}
           <TouchableOpacity 
-            className={`bg-yellow-500 rounded-lg p-4 mt-6 ${isLoading ? 'opacity-50' : ''}`}
+            className={` font-ChakraPetch_light bg-yellow-500 p-4 mt-6 ${isLoading ? 'opacity-50' : ''}`}
             onPress={handleLogin}
             disabled={isLoading}
           >
