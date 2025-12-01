@@ -4,6 +4,7 @@ import { ref, onValue, update, set, get } from 'firebase/database';
 import { dbFB } from '../config/firebaseConfig';
 import { useAuth } from './useAuth';
 import { useAddHistory } from './useAddHistory';
+import { useUserWeb } from './useUserWeb'; // ← ADICIONAR ESTE IMPORT
 
 interface EspDevice {
   name: string;
@@ -20,6 +21,7 @@ export interface Room {
 
 export const useRoomsFirebase = () => {
   const { user } = useAuth();
+  const { userWebData, actualDatabaseUid } = useUserWeb(); // ← USAR O USERWEB
   const { addHistory } = useAddHistory();
   const [rooms, setRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState(true);
@@ -29,7 +31,11 @@ export const useRoomsFirebase = () => {
   const unsubscribeSensorRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
-    if (!user?.uid) {
+    // Usar actualDatabaseUid se disponível, caso contrário user.uid
+    const uidToUse = actualDatabaseUid || user?.uid;
+    
+    if (!uidToUse) {
+      console.log('⏳ Aguardando UID...');
       setRooms([]);
       setLoading(false);
       return;
@@ -43,18 +49,18 @@ export const useRoomsFirebase = () => {
       unsubscribeSensorRef.current();
     }
 
-    console.log('🏠 Buscando cômodos do usuário:', user.uid);
+    console.log('🏠 Buscando cômodos do usuário:', uidToUse);
     setLoading(true);
 
-    const userRoomsRef = ref(dbFB, `userWeb/user/${user.uid}/devices/Esp`);
-    const sensorRef = ref(dbFB, `userWeb/user/${user.uid}/devices/sensor`);
+    const userRoomsRef = ref(dbFB, `userWeb/user/${uidToUse}/devices/Esp`);
+    const sensorRef = ref(dbFB, `userWeb/user/${uidToUse}/devices/sensor`);
     
-    // Listener para os ESPs (cômodos) - APENAS MONITORA, NÃO ALTERA
+    // Listener para os ESPs (cômodos)
     unsubscribeRoomsRef.current = onValue(userRoomsRef, (snapshot) => {
       try {
         if (snapshot.exists()) {
           const espData = snapshot.val() as { [key: string]: EspDevice };
-          console.log('✅ Dados dos ESPs encontrados');
+          console.log('✅ Dados dos ESPs encontrados:', espData);
           
           const roomsArray: Room[] = Object.entries(espData).map(([id, device]) => ({
             id,
@@ -64,7 +70,7 @@ export const useRoomsFirebase = () => {
             isEnabled: device.ativo || false
           }));
           
-          console.log('🏠 Cômodos convertidos:', roomsArray.length);
+          console.log('🏠 Cômodos convertidos:', roomsArray);
           setRooms(roomsArray);
         } else {
           console.log('⚠️ Nenhum ESP encontrado para o usuário');
@@ -78,17 +84,12 @@ export const useRoomsFirebase = () => {
       }
     });
 
-    // Listener para o sensor - APENAS MONITORA, NÃO ALTERA OS CARDS
+    // Listener para o sensor
     unsubscribeSensorRef.current = onValue(sensorRef, (snapshot) => {
       try {
         const sensorValue = snapshot.exists() ? snapshot.val() : false;
         console.log('🔍 Status do sensor:', sensorValue);
-        
-        // ✅ APENAS ATUALIZA O ESTADO DO SENSOR, NÃO ALTERA OS CÔMODOS
         setSensorStatus(sensorValue);
-        
-        // ❌ REMOVIDO: Código que fechava automaticamente os cômodos
-        
       } catch (error) {
         console.error('❌ Erro ao monitorar sensor:', error);
       }
@@ -105,21 +106,21 @@ export const useRoomsFirebase = () => {
         unsubscribeSensorRef.current = null;
       }
     };
-  }, [user?.uid]); 
-
-  // ✅ REMOVIDA: Função closeAllRoomsAutomatically (não é mais usada)
+  }, [user?.uid, actualDatabaseUid]); // ← ADICIONAR actualDatabaseUid NAS DEPENDÊNCIAS
 
   // Função para atualizar estado de um cômodo (controle manual)
   const updateRoomState = async (roomId: string, isEnabled: boolean): Promise<boolean> => {
-    if (!user?.uid) return false;
+    const uidToUse = actualDatabaseUid || user?.uid;
+    
+    if (!uidToUse) return false;
 
     try {
       console.log('🔄 updateRoomState chamado para:', roomId, isEnabled);
       
-      const roomRef = ref(dbFB, `userWeb/user/${user.uid}/devices/Esp/${roomId}/ativo`);
+      const roomRef = ref(dbFB, `userWeb/user/${uidToUse}/devices/Esp/${roomId}/ativo`);
       await set(roomRef, isEnabled);
       
-      // Registrar no histórico - Ação manual do usuário
+      // Registrar no histórico
       const room = rooms.find(r => r.id === roomId);
       if (room) {
         console.log('📝 Chamando addHistory para:', room.title, isEnabled ? 'aberto' : 'fechado');
@@ -142,17 +143,19 @@ export const useRoomsFirebase = () => {
 
   // Função para fechar todos os cômodos (manual)
   const closeAllRooms = async (): Promise<boolean> => {
-    if (!user?.uid) return false;
+    const uidToUse = actualDatabaseUid || user?.uid;
+    
+    if (!uidToUse) return false;
 
     try {
       const updates: { [key: string]: boolean } = {};
       rooms.forEach(room => {
-        updates[`userWeb/user/${user.uid}/devices/Esp/${room.id}/ativo`] = false;
+        updates[`userWeb/user/${uidToUse}/devices/Esp/${room.id}/ativo`] = false;
       });
 
       await update(ref(dbFB), updates);
       
-      // Registrar no histórico - Ação manual "Fechar tudo"
+      // Registrar no histórico
       for (const room of rooms) {
         if (room.isEnabled) {
           console.log('📝 Registrando "Fechar tudo" para:', room.title);
@@ -176,17 +179,19 @@ export const useRoomsFirebase = () => {
 
   // Função para abrir todos os cômodos (manual)
   const openAllRooms = async (): Promise<boolean> => {
-    if (!user?.uid) return false;
+    const uidToUse = actualDatabaseUid || user?.uid;
+    
+    if (!uidToUse) return false;
 
     try {
       const updates: { [key: string]: boolean } = {};
       rooms.forEach(room => {
-        updates[`userWeb/user/${user.uid}/devices/Esp/${room.id}/ativo`] = true;
+        updates[`userWeb/user/${uidToUse}/devices/Esp/${room.id}/ativo`] = true;
       });
 
       await update(ref(dbFB), updates);
       
-      // Registrar no histórico - Ação manual "Abrir tudo"
+      // Registrar no histórico
       for (const room of rooms) {
         if (!room.isEnabled) {
           console.log('📝 Registrando "Abrir tudo" para:', room.title);
@@ -211,7 +216,7 @@ export const useRoomsFirebase = () => {
   return {
     rooms,
     loading,
-    sensorStatus, // Apenas para informação, não para controle
+    sensorStatus,
     updateRoomState,
     closeAllRooms,
     openAllRooms
@@ -225,7 +230,7 @@ const getRoomImage = (roomName: string): string => {
     'Sala': 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400',
     'Cozinha': 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400',
     'Banheiro': 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400',
-    'Jardim': 'https://images.unsplash.com/photo-1519925610903-381054cc2a1c?w=400'
+    'Portão': 'https://plus.unsplash.com/premium_photo-1661286705410-edb4c9bde72a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   };
 
   return roomImages[roomName] || 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400';

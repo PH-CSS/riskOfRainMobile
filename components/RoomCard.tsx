@@ -40,7 +40,7 @@ export default function RoomCard({ id, title, subtitle, image, isEnabled }: Room
         {/* Imagem fixa à esquerda */}
         <Image 
           source={{ uri: image }} 
-          className="h-16 w-16 rounded-lg" 
+          className="h-16 w-16 " 
           defaultSource={require('../assets/default-room.jpg')}
         />
 
@@ -65,7 +65,7 @@ export default function RoomCard({ id, title, subtitle, image, isEnabled }: Room
             
             {/* Status */}
             <View className="flex-row items-center">
-              <View className={`w-2 h-2 rounded-full mr-2 ${isEnabled ? 'bg-green-400' : 'bg-red-400'}`} />
+              <View className={`w-2 h-2  mr-2 ${isEnabled ? 'bg-green-400' : 'bg-red-400'}`} />
               <Text className={`text-xs ${isEnabled ? 'text-green-400' : 'text-red-400'}`}>
                 {isEnabled ? 'Janela fechada' : 'Janela aberta'}
               </Text>
